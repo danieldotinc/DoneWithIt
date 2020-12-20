@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     backgroundColor: colors.white,
+    marginBottom: 20,
   },
   image: {
     width: '100%',
