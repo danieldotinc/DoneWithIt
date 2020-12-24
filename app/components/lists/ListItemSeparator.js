@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import colors from '../config/colors';
+import colors from '../../config/colors';
 
-const ListItemSeperator = () => {
-  return <View style={styles.seperator} />;
+const ListItemSeparator = () => {
+  return <View style={styles.separator} />;
 };
 
 const styles = StyleSheet.create({
-  seperator: {
+  separator: {
     width: '90%',
     height: 1,
     alignSelf: 'center',
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItemSeperator;
+export default ListItemSeparator;

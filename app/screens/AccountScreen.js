@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native';
 import Icon from '../components/Icon';
-import ListItem from '../components/ListItem';
-import ListItemSeperator from '../components/ListItemSeperator';
+import ListItem from '../components/lists/ListItem';
+import ListItemSeparator from '../components/lists/ListItemSeparator';
 import colors from '../config/colors';
-import Screen from './Screen';
+import Screen from '../components/Screen';
 
 const menuItems = [
   {
@@ -41,7 +41,7 @@ const AccountScreen = () => {
               IconComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor} />}
             />
           )}
-          ItemSeparatorComponent={ListItemSeperator}
+          ItemSeparatorComponent={ListItemSeparator}
         />
       </View>
 

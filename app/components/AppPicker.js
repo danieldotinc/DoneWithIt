@@ -3,15 +3,24 @@ import { View, StyleSheet, TouchableWithoutFeedback, Modal, Button, FlatList } f
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { defaultStyles } from '../config/styles';
 import AppText from './AppText';
-import Screen from '../screens/Screen';
+import Screen from './Screen';
 import PickerItem from './PickerItem';
 
-const AppPicker = ({ icon, items, selectedItem, placeholder, onSelectedItem }) => {
+const AppPicker = ({
+  icon,
+  items,
+  selectedItem,
+  numColumns = 1,
+  placeholder,
+  PickerItemComponent = PickerItem,
+  onSelectedItem,
+  width = '100%',
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width }]}>
           {icon && (
             <MaterialCommunityIcons size={25} name={icon} color={defaultStyles.colors.medium} style={styles.icon} />
           )}
@@ -27,11 +36,12 @@ const AppPicker = ({ icon, items, selectedItem, placeholder, onSelectedItem }) =
         <Screen>
           <Button title="Close" onPress={() => setModalVisible(false)} />
           <FlatList
+            numColumns={numColumns}
             data={items}
             keyExtractor={item => item.value.toString()}
             renderItem={({ item }) => (
-              <PickerItem
-                label={item.label}
+              <PickerItemComponent
+                item={item}
                 onPress={() => {
                   setModalVisible(false);
                   onSelectedItem(item);
@@ -52,7 +62,6 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     borderRadius: 25,
-    width: '100%',
   },
   icon: {
     marginRight: 10,
