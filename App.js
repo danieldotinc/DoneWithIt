@@ -13,31 +13,18 @@ import MessagesScreen from './app/screens/MessagesScreen';
 import Screen from './app/components/Screen';
 import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
+import ImageInputList from './app/components/ImageInputList';
+import ImageInput from './app/components/ImageInput';
+import AuthNavigator from './app/navigation/AuthNavigator';
+
+import { NavigationContainer } from '@react-navigation/native';
+import navigationTheme from './app/navigation/navigationTheme';
+import AppNavigator from './app/navigation/AppNavigator';
 
 export default function App() {
   return (
-    <>
-      {/* <ListItem
-        title="Daniel Devman"
-        subTitle="danieldevman@gmail.com"
-        image={require('./app/assets/daniel2.jpeg')}
-        showChevrons
-      />
-      <ListItem
-        title="Mosh Hamedani"
-        subTitle="codewithmosh@gmail.com"
-        image={require('./app/assets/mosh.jpg')}
-        showChevrons
-      />
-      <ListItem
-        title="Daniel Daneshi"
-        subTitle="danieldaneshi@gmail.comdanieldaneshi@gmail.comdanieldaneshi@gmail.comdanieldaneshi@gmail.comdanieldaneshi@gmail.comdanieldaneshi@gmail.comdanieldaneshi@gmail.com"
-        image={require('./app/assets/daniel1.jpeg')}
-        showChevrons
-      />
-      <ListItem title="Trul" subTitle="trul@gmail.com" image={require('./app/assets/trul.png')} showChevrons /> */}
-      <ListingEditScreen />
-      {/* <MessagesScreen /> */}
-    </>
+    <NavigationContainer theme={navigationTheme}>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
