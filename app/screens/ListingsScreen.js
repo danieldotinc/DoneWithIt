@@ -1,40 +1,46 @@
-import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+
 import Card from '../components/Card';
 import colors from '../config/colors';
+import listingsApi from '../api/listings';
 import Screen from '../components/Screen';
 import routes from '../navigation/routes';
-
-const listings = [
-  {
-    id: 1,
-    title: 'Red jacket for sale',
-    price: 80,
-    image: require('../assets/jacket.jpg'),
-  },
-  {
-    id: 2,
-    title: 'Couch in great condition',
-    price: 1000,
-    image: require('../assets/couch.jpg'),
-  },
-];
+import AppText from '../components/AppText';
+import AppButton from '../components/AppButton';
+import AppActivityIndicator from '../components/AppActivityIndicator';
+import useApi from '../hooks/useApi';
 
 const ListingsScreen = ({ navigation }) => {
+  const { data: listings, error, loading, request: loadListings } = useApi(listingsApi.getListings);
+
+  useEffect(() => {
+    loadListings();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
-      <FlatList
-        data={listings}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <Card
-            title={item.title}
-            subTitle={'$' + item.price}
-            image={item.image}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-          />
-        )}
-      />
+      {error && (
+        <View style={styles.error}>
+          <AppText>Couldn't load the listings.</AppText>
+          <AppButton title="Retry" onPress={loadListings} />
+        </View>
+      )}
+      {loading && <AppActivityIndicator visible={loading} />}
+      {!error && (
+        <FlatList
+          data={listings}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => (
+            <Card
+              title={item.title}
+              subTitle={'$' + item.price}
+              imageUrl={item.images[0].url}
+              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            />
+          )}
+        />
+      )}
     </Screen>
   );
 };
@@ -43,6 +49,11 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
     padding: 20,
+  },
+  error: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
