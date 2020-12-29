@@ -19,30 +19,32 @@ const ListingsScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Screen style={styles.screen}>
-      {error && (
-        <View style={styles.error}>
-          <AppText>Couldn't load the listings.</AppText>
-          <AppButton title="Retry" onPress={loadListings} />
-        </View>
-      )}
-      {loading && <AppActivityIndicator visible={loading} />}
-      {!error && (
-        <FlatList
-          data={listings}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              subTitle={'$' + item.price}
-              imageUrl={item.images[0].url}
-              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-              thumbnailUrl={item.images[0].thumbnailUrl}
-            />
-          )}
-        />
-      )}
-    </Screen>
+    <>
+      <AppActivityIndicator visible={loading} />
+      <Screen style={styles.screen}>
+        {error && (
+          <View style={styles.error}>
+            <AppText>Couldn't load the listings.</AppText>
+            <AppButton title="Retry" onPress={loadListings} />
+          </View>
+        )}
+        {!error && (
+          <FlatList
+            data={listings}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                title={item.title}
+                subTitle={'$' + item.price}
+                imageUrl={item.images[0].url}
+                onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+                thumbnailUrl={item.images[0].thumbnailUrl}
+              />
+            )}
+          />
+        )}
+      </Screen>
+    </>
   );
 };
 
@@ -50,6 +52,8 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
     padding: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
   },
   error: {
     flex: 1,
