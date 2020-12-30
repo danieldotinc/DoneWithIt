@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     width: '33%',
   },
   text: {
+    fontSize: 16,
     marginTop: 5,
     textAlign: 'center',
   },

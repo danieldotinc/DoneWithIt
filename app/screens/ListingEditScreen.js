@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
+import * as Notifications from 'expo-notifications';
 import * as Yup from 'yup';
+
 import listingsApi from '../api/listings';
 import CategoryPickerItem from '../components/CategoryPickerItem';
-
 import { AppForm, AppFormField, SubmitButton, AppFormPicker } from '../components/forms';
 import FormImagePicker from '../components/forms/FormImagePicker';
 import Screen from '../components/Screen';
 import useLocation from '../hooks/useLocation';
 import UploadScreen from './UploadScreen';
+import routes from '../navigation/routes';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label('Title'),
@@ -47,6 +49,16 @@ const ListingEditScreen = props => {
     }
 
     resetForm();
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'You successfully posted a new listing.',
+        body: 'It will appear in the listing section after content evaluation in less than 2 minutes',
+        data: { screen: routes.LISTING, reload: true },
+      },
+      trigger: {
+        seconds: 2,
+      },
+    });
   };
 
   return (
