@@ -6,7 +6,7 @@ const AppActivityIndicator = ({ visible = false }) => {
   if (!visible) return null;
   return (
     <View style={styles.overlay}>
-      <LottieView autoPlay loop source={require('../animation/loader.json')}></LottieView>
+      <LottieView autoPlay loop source={require('../assets/animation/loader.json')}></LottieView>
     </View>
   );
 };

@@ -17,7 +17,7 @@ const UploadScreen = ({ visible = false, progress = 0, onDone }) => {
             autoPlay
             loop={false}
             onAnimationFinish={onDone}
-            source={require('../animation/done.json')}
+            source={require('../assets/animation/done.json')}
           />
         )}
       </View>
